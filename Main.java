@@ -7,25 +7,11 @@ public class Main {
 	    userAgent.visit("https://www.nfl.com/standings/");
 	    String text = userAgent.doc.innerHTML().substring(66600, 149000);
 	    PrintWriter pw = new PrintWriter("parsed.txt");
-	    String info = "";
-	    for (int i = 0; i < text.length(); i++) {
-	    	if (text.charAt(i) == '<') {
-	    		while (i < text.length() && text.charAt(i) != '>') i++;
-	    	} else {
-	    		info += text.charAt(i);
-	    	}
-	    	
-	    }
+	    WebHelper wh = new WebHelper();
 	    
-	    String parsed = "";
-	    for (int i = 0; i < info.length(); i++) {
-	    	if (i < info.length() - 9 && info.substring(i, i + 9).equals("Standings")) i += 800;
-	    	
-	    	if (i < info.length() - 11 && info.substring(i, i + 11).equals("Advertising")) i += 1900;
-	    	
-	    	parsed += info.charAt(i);		
- 	    }
-	    pw.println(parsed);
+	    String info = wh.removeTags(text);
+	    
+	    pw.println(wh.parse(info));
 	    pw.close();
 	    
 	    League nfl = new League();
@@ -34,10 +20,8 @@ public class Main {
 	    nfl.games("games.txt");
 	    nfl.sort();
 	    
-	    pw = new PrintWriter("ratings.html");
+	    pw = new PrintWriter("index.html");
 	    
-	    
-	    WebHelper wh = new WebHelper();
 	    pw.println(wh.init);
 	    
 	    Date date = new Date();
