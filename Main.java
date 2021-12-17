@@ -1,5 +1,6 @@
 import com.jaunt.*;
 import java.io.*;
+import java.util.Date;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		UserAgent userAgent = new UserAgent();                       
@@ -33,8 +34,22 @@ public class Main {
 	    nfl.games("games.txt");
 	    nfl.sort();
 	    
+	    pw = new PrintWriter("ratings.html");
+	    
+	    
+	    WebHelper wh = new WebHelper();
+	    pw.println(wh.init);
+	    
+	    Date date = new Date();
+	    
+	    pw.println("<h1>NFL Rankings 2021. Last updated " + date.toString() + "</h1>");
+	    pw.println("<p>" + wh.elo + "</p>");
+	    pw.println("<p>");
 	    for (int i = 0; i < nfl.teams.length; i++) {
-	    	System.out.println((i + 1) + ". " + nfl.teams[i].toString());
+	    	pw.println((i + 1) + ". " + nfl.teams[i].toString() + "<br>");
 	    }
+	    pw.println("</p>");
+	    pw.println(wh.close);
+	    pw.close();
 	}
 }
