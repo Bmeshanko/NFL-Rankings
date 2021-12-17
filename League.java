@@ -107,15 +107,15 @@ public class League {
 		double hScoreDiff = 10 + (homeScore - awayScore);
 		
 		if (awayScore > homeScore) {
-			aScoreDiff += 15;
-			hScoreDiff -= 15;
+			aScoreDiff += 20;
+			hScoreDiff -= 20;
 		} else if (homeScore > awayScore) {
-			hScoreDiff += 15;
-			aScoreDiff -= 15;
+			hScoreDiff += 20;
+			aScoreDiff -= 20;
 		}
-		teams[home].rating += 2 * (hScoreDiff - hExpected);
+		teams[home].rating += 1.25 * (hScoreDiff - hExpected);
 		teams[home].addGame(game);
-		teams[away].rating += 2 * (aScoreDiff - aExpected);
+		teams[away].rating += 1.25 * (aScoreDiff - aExpected);
 		teams[away].addGame(game);
 	}
 	
